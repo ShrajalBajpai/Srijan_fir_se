@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - सृजन फिर से</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .auth-container {
+            max-width: 450px;
+            margin: 100px auto;
+            padding: 30px;
+        }
+
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .auth-form input {
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .auth-form button {
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .auth-form button:hover {
+            background: #444;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .auth-switch button {
+            background: none;
+            border: none;
+            color: #8b5e3c;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="brand">
+            <img src="images/logo.jpg" alt="My Brand Logo">
+            <span>सृजन फिर से</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+        </nav>
+
+    </header>
+
+
+    <main class="auth-container">
+
+        <h1 id="formTitle">Create Account</h1>
+
+        <form id="authForm" class="auth-form">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email address"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                minlength="6"
+                required
+            >
+
+            <button type="submit" id="submitButton">
+                Register
+            </button>
+
+        </form>
+
+        <div class="auth-switch">
+
+            <span id="switchText">
+                Already have an account?
+            </span>
+
+            <button type="button" id="switchButton">
+                Login
+            </button>
+
+        </div>
+
+        <p id="message"></p>
+
+        <div class="back-home">
+            <a href="index.html">← Back to website</a>
+        </div>
+
+    </main>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Our authentication code -->
+    <script src="auth.js"></script>
+
+</body>
+</html>
