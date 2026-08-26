@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - सृजन फिर से</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .dashboard {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-option {
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            background: #f8f3ee;
+            border: 1px solid #e5d8cc;
+        }
+
+        .dashboard-option h3 {
+            margin-bottom: 10px;
+        }
+
+        .dashboard-option a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #8b5e3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+
+        .dashboard-option a:hover {
+            background: #6f472d;
+        }
+
+        #userEmail {
+            color: #8b5e3c;
+        }
+
+        #logoutButton {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        #logoutButton:hover {
+            background: #111;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="brand">
+        <img src="images/logo.jpg" alt="My Brand Logo">
+        <span>सृजन फिर से</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+</header>
+
+
+<main class="dashboard">
+
+    <div class="dashboard-header">
+
+        <p class="small-text">WELCOME BACK</p>
+
+        <h1>Your Dashboard</h1>
+
+        <p>
+            Logged in as:
+            <strong id="userEmail">Loading...</strong>
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="dashboard-option">
+
+            <h3>✍️ Write</h3>
+
+            <p>
+                Write your story, poem, article or thoughts.
+            </p>
+
+            <a href="write.html">
+                Start Writing
+            </a>
+
+        </div>
+
+
+        <div class="dashboard-option">
+
+            <h3>📄 Upload</h3>
+
+            <p>
+                Upload your PDF or Word document.
+            </p>
+
+            <a href="write.html">
+                Upload Writing
+            </a>
+
+        </div>
+
+
+        <div class="dashboard-option">
+
+            <h3>📚 My Writings</h3>
+
+            <p>
+                See the writings you have submitted.
+            </p>
+
+            <a href="my-writings.html">
+                View My Writings
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <button id="logoutButton">
+        Logout
+    </button>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>
