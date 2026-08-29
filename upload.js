@@ -165,13 +165,19 @@ async function(event) {
             .split(".")
             .pop();
 
+const uniqueId =
+    Date.now() +
+    "-" +
+    Math.random()
+        .toString(36)
+        .substring(2, 10);
 
-    const filePath =
-        user.id +
-        "/" +
-        crypto.randomUUID() +
-        "." +
-        fileExtension;
+const filePath =
+    user.id +
+    "/" +
+    uniqueId +
+    "." +
+    fileExtension;
 
 
 
