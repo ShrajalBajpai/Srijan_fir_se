@@ -182,19 +182,29 @@ const filePath =
 
 
     // Upload file to Supabase Storage
-    const {
-        error: uploadError
-    } = await supabaseClient
-        .storage
-        .from("writings")
-        .upload(
-            filePath,
-            file,
-            {
-                contentType: file.type,
-                upsert: false
-            }
-        );
+    showMessage("Uploading file to storage...", "");
+
+console.log("Starting storage upload...");
+console.log("File:", file.name);
+console.log("Size:", file.size);
+console.log("Path:", filePath);
+
+const {
+    error: uploadError
+} = await supabaseClient
+    .storage
+    .from("writings")
+    .upload(
+        filePath,
+        file,
+        {
+            contentType: file.type,
+            upsert: false
+        }
+    );
+
+console.log("Storage upload finished.");
+
 
 
 
