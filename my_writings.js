@@ -1,369 +1,303 @@
 const SUPABASE_URL =
-"https://xhtnidoouiaolljkqsus.supabase.co";
+    "https://xhtnidoouiaolljkqsus.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_W-F-EydBhQh-rXBoBaHCUw_X-7peEiC";
+    "sb_publishable_W-F-EydBhQh-rXBoBaHCUw_X-7peEiC";
 
 const supabaseClient =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 const poemsContainer =
-document.getElementById("poemsContainer");
+    document.getElementById("poemsContainer");
 
 const loading =
-document.getElementById("loading");
+    document.getElementById("loading");
 
 const emptyMessage =
-document.getElementById("emptyMessage");
+    document.getElementById("emptyMessage");
 
 const errorMessage =
-document.getElementById("errorMessage");
+    document.getElementById("errorMessage");
 
-// --------------------------------------------------
-// Load user's writings
-// --------------------------------------------------
+async function loadMyPoems() {
 
-async function loadMyWritings() {
+    const {
+        data: { user },
+        error: userError
+    } = await supabaseClient.auth.getUser();
 
-// Check logged-in user
-const {
-    data: { user },
-    error: userError
-} = await supabaseClient.auth.getUser();
+    if (userError || !user) {
 
+        window.location.href = "login.html";
 
-if (userError || !user) {
+        return;
+    }
 
-    window.location.href = "login.html";
+    const {
+        data: poems,
+        error
+    } = await supabaseClient
+        .from("poems")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", {
+            ascending: false
+        });
 
-    return;
-}
+    loading.style.display = "none";
 
+    if (error) {
 
-// Get user's writings
-const {
-    data: writings,
-    error
-} = await supabaseClient
-    .from("poems")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at", {
-        ascending: false
-    });
+        console.error("Load error:", error);
 
+        errorMessage.textContent =
+            "Unable to load your writings: " +
+            error.message;
 
-loading.style.display = "none";
+        return;
+    }
 
+    if (!poems || poems.length === 0) {
 
-if (error) {
+        emptyMessage.style.display = "block";
 
-    console.error(error);
+        return;
+    }
 
-    errorMessage.textContent =
-        "Unable to load your writings.";
+    poemsContainer.innerHTML = "";
 
-    return;
-}
+    poems.forEach(function (poem) {
 
+        const card =
+            document.createElement("div");
 
-// No writings
-if (!writings || writings.length === 0) {
+        card.className =
+            "writing-card";
 
-    emptyMessage.style.display = "block";
+        const statusClass =
+            poem.status === "published"
+                ? "published"
+                : "draft";
 
-    return;
-}
+        const statusText =
+            poem.status === "published"
+                ? "Published"
+                : "Draft";
 
+        const date =
+            poem.created_at
+                ? new Date(
+                    poem.created_at
+                ).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                )
+                : "";
 
-// Display writings
-writings.forEach(function (writing) {
+        let documentButton = "";
 
-    const card =
-        document.createElement("div");
+        // If this is an uploaded document
+        if (poem.file_path) {
 
-    card.className =
-        "writing-card";
+            documentButton = `
+                <button
+                    class="delete-button"
+                    style="background:#8b5e3c; margin-right:10px;"
+                    onclick="openDocument('${escapeHTML(poem.file_path)}')"
+                >
+                    📄 View Document
+                </button>
+            `;
+        }
 
+        card.innerHTML = `
 
-    const statusClass =
-        writing.status === "published"
-            ? "published"
-            : "draft";
+            <span class="status ${statusClass}">
+                ${statusText}
+            </span>
 
+            <h2>
+                ${escapeHTML(poem.title)}
+            </h2>
 
-    const statusText =
-        writing.status === "published"
-            ? "Published"
-            : "Draft";
+            <div class="writing-meta">
 
-
-    const date =
-        new Date(
-            writing.created_at
-        ).toLocaleDateString(
-            "en-IN",
-            {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
-        );
-
-
-    // Check whether this is an uploaded document
-    const isUploadedFile =
-        !!writing.file_path;
-
-
-    let preview = "";
-
-
-    if (isUploadedFile) {
-
-        preview = `
-            <div class="writing-preview">
-                📄 ${escapeHTML(
-                    writing.file_name || "Uploaded document"
+                Category:
+                ${escapeHTML(
+                    poem.category || "Poetry"
                 )}
+
+                &nbsp; • &nbsp;
+
+                ${date}
+
             </div>
-        `;
 
-    } else {
-
-        preview = `
             <div class="writing-preview">
-                ${escapeHTML(writing.content)}
+
+                ${escapeHTML(
+                    poem.content || ""
+                )}
+
             </div>
-        `;
-    }
 
-
-    // View button for uploaded files
-    let viewButton = "";
-
-
-    if (isUploadedFile) {
-
-        viewButton = `
-            <button
-                class="write-new"
-                onclick="viewWriting('${writing.file_path}')"
-            >
-                👁️ View
-            </button>
-        `;
-    }
-
-
-    card.innerHTML = `
-
-        <span class="status ${statusClass}">
-            ${statusText}
-        </span>
-
-        <h2>
-            ${escapeHTML(writing.title)}
-        </h2>
-
-        <div class="writing-meta">
-
-            Category:
-            ${escapeHTML(
-                writing.category || "Poetry"
-            )}
-
-            &nbsp; • &nbsp;
-
-            ${date}
-
-            ${
-                isUploadedFile
-                    ? "&nbsp; • &nbsp; 📄 Uploaded File"
-                    : "&nbsp; • &nbsp; ✍️ Poem"
-            }
-
-        </div>
-
-        ${preview}
-
-        <div style="
-            display:flex;
-            gap:10px;
-            flex-wrap:wrap;
-            margin-top:20px;
-        ">
-
-            ${viewButton}
+            ${documentButton}
 
             <button
                 class="delete-button"
-                onclick="deleteWriting(
-                    '${writing.id}',
-                    '${writing.file_path || ""}'
-                )"
+                onclick="deletePoem('${poem.id}')"
             >
-                🗑️ Delete
+                Delete
             </button>
 
-        </div>
+        `;
 
-    `;
+        poemsContainer.appendChild(card);
 
-
-    poemsContainer.appendChild(card);
-
-});
-
+    });
 
 }
 
-// --------------------------------------------------
-// View uploaded document
-// --------------------------------------------------
 
-async function viewWriting(filePath) {
-
-if (!filePath) {
-    return;
-}
-
-
-const {
-    data,
-    error
-} = await supabaseClient
-    .storage
-    .from("writings")
-    .createSignedUrl(
-        filePath,
-        3600
-    );
-
-
-if (error) {
-
-    console.error(error);
-
-    alert(
-        "Unable to open the document."
-    );
-
-    return;
-}
-
-
-window.open(
-    data.signedUrl,
-    "_blank"
-);
-
-
-}
-
-// --------------------------------------------------
-// Delete writing
-// --------------------------------------------------
-
-async function deleteWriting(
-writingId,
-filePath
-) {
-
-const confirmed =
-    confirm(
-        "Are you sure you want to delete this writing?"
-    );
-
-
-if (!confirmed) {
-    return;
-}
-
-
-// Delete uploaded file from Storage
-if (filePath) {
+// Open uploaded document
+async function openDocument(filePath) {
 
     const {
-        error: storageError
+        data,
+        error
     } = await supabaseClient
         .storage
         .from("writings")
-        .remove([
-            filePath
-        ]);
+        .createSignedUrl(
+            filePath,
+            3600
+        );
 
-
-    if (storageError) {
+    if (error) {
 
         console.error(
-            "Storage delete error:",
-            storageError
+            "Document error:",
+            error
         );
 
         alert(
-            "Unable to delete the uploaded file."
+            "Unable to open the document."
         );
 
         return;
     }
+
+    window.open(
+        data.signedUrl,
+        "_blank"
+    );
 }
 
 
-// Delete database record
-const {
-    error
-} = await supabaseClient
-    .from("poems")
-    .delete()
-    .eq("id", writingId);
+// Delete poem or uploaded writing
+async function deletePoem(poemId) {
 
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this writing?"
+        );
 
-if (error) {
+    if (!confirmed) {
+        return;
+    }
 
-    console.error(error);
+    // Get file path first
+    const {
+        data: poem,
+        error: fetchError
+    } = await supabaseClient
+        .from("poems")
+        .select("file_path")
+        .eq("id", poemId)
+        .single();
+
+    if (fetchError) {
+
+        console.error(fetchError);
+
+        alert(
+            "Unable to find the writing."
+        );
+
+        return;
+    }
+
+    // Delete database record
+    const {
+        error
+    } = await supabaseClient
+        .from("poems")
+        .delete()
+        .eq("id", poemId);
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to delete the writing."
+        );
+
+        return;
+    }
+
+    // If it is an uploaded document,
+    // also remove the file from Storage
+    if (poem.file_path) {
+
+        const {
+            error: storageError
+        } = await supabaseClient
+            .storage
+            .from("writings")
+            .remove([
+                poem.file_path
+            ]);
+
+        if (storageError) {
+
+            console.error(
+                "Storage delete error:",
+                storageError
+            );
+
+        }
+
+    }
 
     alert(
-        "Unable to delete the writing."
+        "Writing deleted successfully."
     );
 
-    return;
-}
-
-
-alert(
-    "Writing deleted successfully."
-);
-
-
-// Reload page
-window.location.reload();
-
+    window.location.reload();
 
 }
 
-// --------------------------------------------------
+
 // Prevent HTML injection
-// --------------------------------------------------
-
 function escapeHTML(text) {
 
-const div =
-    document.createElement("div");
+    const div =
+        document.createElement("div");
 
-div.textContent =
-    text || "";
+    div.textContent =
+        text || "";
 
-return div.innerHTML;
-
-
+    return div.innerHTML;
 }
 
-// --------------------------------------------------
-// Start
-// --------------------------------------------------
 
-loadMyWritings();
+// Start
+loadMyPoems();
