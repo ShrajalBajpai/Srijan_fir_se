@@ -51,14 +51,16 @@ message.className = type;
 
 async function savePoem(status) {
 
-const user =
-    await getCurrentUser();
+    const user = await getCurrentUser();
 
+    if (!user) {
+        return;
+    }
 
-if (!user) {
-    return;
-}
+    console.log("Authenticated user:", user);
+    console.log("User ID:", user.id);
 
+    // keep the rest of your existing code here
 
 const title =
     document
