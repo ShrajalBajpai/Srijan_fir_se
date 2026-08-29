@@ -22,7 +22,11 @@ document.getElementById("emptyMessage");
 const errorMessage =
 document.getElementById("errorMessage");
 
-async function loadMyPoems() {
+// --------------------------------------------------
+// Load user's writings
+// --------------------------------------------------
+
+async function loadMyWritings() {
 
 // Check logged-in user
 const {
@@ -39,10 +43,9 @@ if (userError || !user) {
 }
 
 
-
-// Get user's poems
+// Get user's writings
 const {
-    data: poems,
+    data: writings,
     error
 } = await supabaseClient
     .from("poems")
@@ -51,7 +54,6 @@ const {
     .order("created_at", {
         ascending: false
     });
-
 
 
 loading.style.display = "none";
@@ -68,9 +70,8 @@ if (error) {
 }
 
 
-
-// No poems
-if (!poems || poems.length === 0) {
+// No writings
+if (!writings || writings.length === 0) {
 
     emptyMessage.style.display = "block";
 
@@ -78,9 +79,8 @@ if (!poems || poems.length === 0) {
 }
 
 
-
-// Display poems
-poems.forEach(function (poem) {
+// Display writings
+writings.forEach(function (writing) {
 
     const card =
         document.createElement("div");
@@ -90,20 +90,20 @@ poems.forEach(function (poem) {
 
 
     const statusClass =
-        poem.status === "published"
+        writing.status === "published"
             ? "published"
             : "draft";
 
 
     const statusText =
-        poem.status === "published"
+        writing.status === "published"
             ? "Published"
             : "Draft";
 
 
     const date =
         new Date(
-            poem.created_at
+            writing.created_at
         ).toLocaleDateString(
             "en-IN",
             {
@@ -114,6 +114,50 @@ poems.forEach(function (poem) {
         );
 
 
+    // Check whether this is an uploaded document
+    const isUploadedFile =
+        !!writing.file_path;
+
+
+    let preview = "";
+
+
+    if (isUploadedFile) {
+
+        preview = `
+            <div class="writing-preview">
+                📄 ${escapeHTML(
+                    writing.file_name || "Uploaded document"
+                )}
+            </div>
+        `;
+
+    } else {
+
+        preview = `
+            <div class="writing-preview">
+                ${escapeHTML(writing.content)}
+            </div>
+        `;
+    }
+
+
+    // View button for uploaded files
+    let viewButton = "";
+
+
+    if (isUploadedFile) {
+
+        viewButton = `
+            <button
+                class="write-new"
+                onclick="viewWriting('${writing.file_path}')"
+            >
+                👁️ View
+            </button>
+        `;
+    }
+
 
     card.innerHTML = `
 
@@ -122,32 +166,50 @@ poems.forEach(function (poem) {
         </span>
 
         <h2>
-            ${escapeHTML(poem.title)}
+            ${escapeHTML(writing.title)}
         </h2>
 
         <div class="writing-meta">
 
             Category:
-            ${escapeHTML(poem.category || "Poetry")}
+            ${escapeHTML(
+                writing.category || "Poetry"
+            )}
 
             &nbsp; • &nbsp;
 
             ${date}
 
+            ${
+                isUploadedFile
+                    ? "&nbsp; • &nbsp; 📄 Uploaded File"
+                    : "&nbsp; • &nbsp; ✍️ Poem"
+            }
+
         </div>
 
-        <div class="writing-preview">
+        ${preview}
 
-            ${escapeHTML(poem.content)}
+        <div style="
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:20px;
+        ">
+
+            ${viewButton}
+
+            <button
+                class="delete-button"
+                onclick="deleteWriting(
+                    '${writing.id}',
+                    '${writing.file_path || ""}'
+                )"
+            >
+                🗑️ Delete
+            </button>
 
         </div>
-
-        <button
-            class="delete-button"
-            onclick="deletePoem('${poem.id}')"
-        >
-            Delete
-        </button>
 
     `;
 
@@ -159,12 +221,61 @@ poems.forEach(function (poem) {
 
 }
 
-// Delete poem
-async function deletePoem(poemId) {
+// --------------------------------------------------
+// View uploaded document
+// --------------------------------------------------
+
+async function viewWriting(filePath) {
+
+if (!filePath) {
+    return;
+}
+
+
+const {
+    data,
+    error
+} = await supabaseClient
+    .storage
+    .from("writings")
+    .createSignedUrl(
+        filePath,
+        3600
+    );
+
+
+if (error) {
+
+    console.error(error);
+
+    alert(
+        "Unable to open the document."
+    );
+
+    return;
+}
+
+
+window.open(
+    data.signedUrl,
+    "_blank"
+);
+
+
+}
+
+// --------------------------------------------------
+// Delete writing
+// --------------------------------------------------
+
+async function deleteWriting(
+writingId,
+filePath
+) {
 
 const confirmed =
     confirm(
-        "Are you sure you want to delete this poem?"
+        "Are you sure you want to delete this writing?"
     );
 
 
@@ -173,12 +284,42 @@ if (!confirmed) {
 }
 
 
+// Delete uploaded file from Storage
+if (filePath) {
+
+    const {
+        error: storageError
+    } = await supabaseClient
+        .storage
+        .from("writings")
+        .remove([
+            filePath
+        ]);
+
+
+    if (storageError) {
+
+        console.error(
+            "Storage delete error:",
+            storageError
+        );
+
+        alert(
+            "Unable to delete the uploaded file."
+        );
+
+        return;
+    }
+}
+
+
+// Delete database record
 const {
     error
 } = await supabaseClient
     .from("poems")
     .delete()
-    .eq("id", poemId);
+    .eq("id", writingId);
 
 
 if (error) {
@@ -186,7 +327,7 @@ if (error) {
     console.error(error);
 
     alert(
-        "Unable to delete the poem."
+        "Unable to delete the writing."
     );
 
     return;
@@ -194,17 +335,20 @@ if (error) {
 
 
 alert(
-    "Poem deleted successfully."
+    "Writing deleted successfully."
 );
 
 
-// Reload the page
+// Reload page
 window.location.reload();
 
 
 }
 
+// --------------------------------------------------
 // Prevent HTML injection
+// --------------------------------------------------
+
 function escapeHTML(text) {
 
 const div =
@@ -218,5 +362,8 @@ return div.innerHTML;
 
 }
 
+// --------------------------------------------------
 // Start
-loadMyPoems();
+// --------------------------------------------------
+
+loadMyWritings();
