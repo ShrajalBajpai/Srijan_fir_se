@@ -88,7 +88,7 @@ async function(event) {
             {
                 redirectTo:
                     window.location.origin +
-                    "/reset-password.html"
+                    "/resetpswd.html"
             }
         );
 
