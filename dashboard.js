@@ -12,31 +12,105 @@ const supabaseClient =
 
 
 // =====================================================
-// CHECK LOGGED-IN USER
+// START DASHBOARD
 // =====================================================
 
-async function checkUser() {
+async function startDashboard() {
 
+    // Get logged-in user
     const {
         data: { user },
-        error
+        error: userError
     } = await supabaseClient.auth.getUser();
 
 
-    if (error || !user) {
+    // Not logged in
+    if (userError || !user) {
 
-        window.location.href =
-            "login.html";
+        window.location.href = "login.html";
 
         return;
     }
 
 
-    document.getElementById(
-        "userEmail"
-    ).textContent =
-        user.email;
+    // Show email
+    const userEmail =
+        document.getElementById("userEmail");
+
+    if (userEmail) {
+
+        userEmail.textContent =
+            user.email;
+
+    }
+
+
+    console.log("Logged-in email:", user.email);
+    console.log("Logged-in user ID:", user.id);
+
+
+    // =================================================
+    // CHECK ADMIN
+    // =================================================
+
+    const {
+        data: admin,
+        error: adminError
+    } = await supabaseClient
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+
+    if (adminError) {
+
+        console.error(
+            "Admin check error:",
+            adminError
+        );
+
+        return;
+    }
+
+
+    console.log(
+        "Admin record:",
+        admin
+    );
+
+
+    // User is admin
+    if (admin) {
+
+        console.log(
+            "✅ THIS USER IS AN ADMIN"
+        );
+
+
+        const adminOption =
+            document.getElementById(
+                "adminOption"
+            );
+
+
+        if (adminOption) {
+
+            adminOption.style.display =
+                "block";
+
+        }
+
+    } else {
+
+        console.log(
+            "❌ THIS USER IS NOT AN ADMIN"
+        );
+
+    }
+
 }
+
 
 
 // =====================================================
@@ -60,67 +134,9 @@ document
     );
 
 
-// =====================================================
-// CHECK IF USER IS ADMIN
-// =====================================================
-
-async function checkAdmin() {
-
-    const {
-        data: { user },
-        error: userError
-    } = await supabaseClient.auth.getUser();
-
-
-    if (userError || !user) {
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } = await supabaseClient
-        .from("admin_users")
-        .select("user_id")
-        .eq("user_id", user.id)
-        .maybeSingle();
-
-
-    if (error) {
-
-        console.error(
-            "Admin check error:",
-            error
-        );
-
-        return;
-    }
-
-
-    // If this user exists in admin_users,
-    // show the Admin Panel button.
-    if (data) {
-
-        const adminOption =
-            document.getElementById(
-                "adminOption"
-            );
-
-        if (adminOption) {
-
-            adminOption.style.display =
-                "block";
-
-        }
-    }
-}
-
 
 // =====================================================
-// START
+// RUN
 // =====================================================
 
-checkUser();
-
-checkAdmin();
+startDashboard();
