@@ -245,7 +245,7 @@ console.log("Storage upload finished.");
 
             category: category,
 
-            status: "published",
+            status: "pending",
 
             file_path: filePath,
 
