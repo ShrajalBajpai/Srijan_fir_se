@@ -10,6 +10,7 @@ const supabaseClient =
         SUPABASE_PUBLISHABLE_KEY
     );
 
+
 const poemsContainer =
     document.getElementById("poemsContainer");
 
@@ -22,6 +23,11 @@ const emptyMessage =
 const errorMessage =
     document.getElementById("errorMessage");
 
+
+// =====================================================
+// LOAD USER'S WRITINGS
+// =====================================================
+
 async function loadMyPoems() {
 
     const {
@@ -29,12 +35,15 @@ async function loadMyPoems() {
         error: userError
     } = await supabaseClient.auth.getUser();
 
+
     if (userError || !user) {
 
-        window.location.href = "login.html";
+        window.location.href =
+            "login.html";
 
         return;
     }
+
 
     const {
         data: poems,
@@ -47,11 +56,16 @@ async function loadMyPoems() {
             ascending: false
         });
 
+
     loading.style.display = "none";
+
 
     if (error) {
 
-        console.error("Load error:", error);
+        console.error(
+            "Load error:",
+            error
+        );
 
         errorMessage.textContent =
             "Unable to load your writings: " +
@@ -60,14 +74,18 @@ async function loadMyPoems() {
         return;
     }
 
+
     if (!poems || poems.length === 0) {
 
-        emptyMessage.style.display = "block";
+        emptyMessage.style.display =
+            "block";
 
         return;
     }
 
+
     poemsContainer.innerHTML = "";
+
 
     poems.forEach(function (poem) {
 
@@ -77,15 +95,41 @@ async function loadMyPoems() {
         card.className =
             "writing-card";
 
-        const statusClass =
-            poem.status === "published"
-                ? "published"
-                : "draft";
 
-        const statusText =
-            poem.status === "published"
-                ? "Published"
-                : "Draft";
+        // =================================================
+        // STATUS
+        // =================================================
+
+        let statusClass = "draft";
+
+        let statusText = "Draft";
+
+
+        if (poem.status === "published") {
+
+            statusClass = "published";
+            statusText = "Published";
+
+        }
+
+        else if (poem.status === "pending") {
+
+            statusClass = "pending";
+            statusText = "Waiting for Approval";
+
+        }
+
+        else if (poem.status === "rejected") {
+
+            statusClass = "rejected";
+            statusText = "Rejected";
+
+        }
+
+
+        // =================================================
+        // DATE
+        // =================================================
 
         const date =
             poem.created_at
@@ -101,37 +145,127 @@ async function loadMyPoems() {
                 )
                 : "";
 
+
+        // =================================================
+        // DOCUMENT BUTTON
+        // =================================================
+
         let documentButton = "";
 
-        // If this is an uploaded document
+
         if (poem.file_path) {
 
             documentButton = `
+
                 <button
-                    class="delete-button"
-                    style="background:#8b5e3c; margin-right:10px;"
-                    onclick="openDocument('${escapeHTML(poem.file_path)}')"
+                    class="edit-button"
+                    style="
+                        background:#8b5e3c;
+                        margin-right:10px;
+                    "
+                    onclick="openDocument('${escapeHTML(
+                        poem.file_path
+                    )}')"
                 >
                     📄 View Document
                 </button>
+
             `;
+
         }
+
+
+        // =================================================
+        // EDIT BUTTON
+        // ONLY DRAFTS CAN BE EDITED
+        // =================================================
+
+        let editButton = "";
+
+
+        if (poem.status === "draft") {
+
+            editButton = `
+
+                <button
+                    class="edit-button"
+                    onclick="editPoem('${poem.id}')"
+                >
+                    ✏️ Edit Draft
+                </button>
+
+            `;
+
+        }
+
+
+        // =================================================
+        // REJECTION MESSAGE
+        // =================================================
+
+        let rejectionMessage = "";
+
+
+        if (
+            poem.status === "rejected" &&
+            poem.rejection_reason
+        ) {
+
+            rejectionMessage = `
+
+                <div
+                    style="
+                        margin-top:15px;
+                        padding:12px;
+                        background:#ffe5e5;
+                        color:#9b2222;
+                        border-radius:8px;
+                    "
+                >
+
+                    <strong>
+                        Admin's reason:
+                    </strong>
+
+                    <br>
+
+                    ${escapeHTML(
+                        poem.rejection_reason
+                    )}
+
+                </div>
+
+            `;
+
+        }
+
+
+        // =================================================
+        // CARD
+        // =================================================
 
         card.innerHTML = `
 
-            <span class="status ${statusClass}">
+            <span
+                class="status ${statusClass}"
+            >
                 ${statusText}
             </span>
 
+
             <h2>
-                ${escapeHTML(poem.title)}
+                ${escapeHTML(
+                    poem.title
+                )}
             </h2>
+
 
             <div class="writing-meta">
 
                 Category:
                 ${escapeHTML(
-                    poem.category || "Poetry"
+                    poem.category ||
+                    "Poetry"
                 )}
 
                 &nbsp; • &nbsp;
@@ -139,6 +273,7 @@ async function loadMyPoems() {
                 ${date}
 
             </div>
+
 
             <div class="writing-preview">
 
@@ -148,16 +283,35 @@ async function loadMyPoems() {
 
             </div>
 
-            ${documentButton}
 
-            <button
-                class="delete-button"
-                onclick="deletePoem('${poem.id}')"
+            ${rejectionMessage}
+
+
+            <div
+                style="
+                    margin-top:15px;
+                    display:flex;
+                    gap:10px;
+                    flex-wrap:wrap;
+                "
             >
-                Delete
-            </button>
+
+                ${documentButton}
+
+                ${editButton}
+
+
+                <button
+                    class="delete-button"
+                    onclick="deletePoem('${poem.id}')"
+                >
+                    Delete
+                </button>
+
+            </div>
 
         `;
+
 
         poemsContainer.appendChild(card);
 
@@ -166,7 +320,23 @@ async function loadMyPoems() {
 }
 
 
-// Open uploaded document
+// =====================================================
+// EDIT DRAFT
+// =====================================================
+
+function editPoem(poemId) {
+
+    window.location.href =
+        "write.html?edit=" +
+        encodeURIComponent(poemId);
+
+}
+
+
+// =====================================================
+// OPEN UPLOADED DOCUMENT
+// =====================================================
+
 async function openDocument(filePath) {
 
     const {
@@ -179,6 +349,7 @@ async function openDocument(filePath) {
             filePath,
             3600
         );
+
 
     if (error) {
 
@@ -194,14 +365,19 @@ async function openDocument(filePath) {
         return;
     }
 
+
     window.open(
         data.signedUrl,
         "_blank"
     );
+
 }
 
 
-// Delete poem or uploaded writing
+// =====================================================
+// DELETE WRITING
+// =====================================================
+
 async function deletePoem(poemId) {
 
     const confirmed =
@@ -209,11 +385,13 @@ async function deletePoem(poemId) {
             "Are you sure you want to delete this writing?"
         );
 
+
     if (!confirmed) {
         return;
     }
 
-    // Get file path first
+
+    // Get file path
     const {
         data: poem,
         error: fetchError
@@ -222,6 +400,7 @@ async function deletePoem(poemId) {
         .select("file_path")
         .eq("id", poemId)
         .single();
+
 
     if (fetchError) {
 
@@ -234,6 +413,7 @@ async function deletePoem(poemId) {
         return;
     }
 
+
     // Delete database record
     const {
         error
@@ -241,6 +421,7 @@ async function deletePoem(poemId) {
         .from("poems")
         .delete()
         .eq("id", poemId);
+
 
     if (error) {
 
@@ -253,8 +434,8 @@ async function deletePoem(poemId) {
         return;
     }
 
-    // If it is an uploaded document,
-    // also remove the file from Storage
+
+    // Delete uploaded file
     if (poem.file_path) {
 
         const {
@@ -265,6 +446,7 @@ async function deletePoem(poemId) {
             .remove([
                 poem.file_path
             ]);
+
 
         if (storageError) {
 
@@ -277,16 +459,21 @@ async function deletePoem(poemId) {
 
     }
 
+
     alert(
         "Writing deleted successfully."
     );
+
 
     window.location.reload();
 
 }
 
 
-// Prevent HTML injection
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
 function escapeHTML(text) {
 
     const div =
@@ -296,8 +483,12 @@ function escapeHTML(text) {
         text || "";
 
     return div.innerHTML;
+
 }
 
 
-// Start
+// =====================================================
+// START
+// =====================================================
+
 loadMyPoems();
