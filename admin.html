@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard - सृजन फिर से</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .admin-container {
+            max-width: 1100px;
+            margin: 70px auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-header h1 {
+            margin-bottom: 10px;
+        }
+
+        .admin-header p {
+            color: #777;
+        }
+
+        .admin-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #eee;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .admin-tab.active {
+            background: #8b5e3c;
+            color: white;
+        }
+
+        .admin-tab:hover {
+            background: #6f472d;
+            color: white;
+        }
+
+        .submission-card {
+            background: #f8f3ee;
+            border: 1px solid #e5d8cc;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .submission-card h2 {
+            margin-top: 0;
+            color: #6f472d;
+        }
+
+        .submission-meta {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .submission-content {
+            background: white;
+            border: 1px solid #e5d8cc;
+            border-radius: 10px;
+            padding: 20px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-pending {
+            background: #fff0d6;
+            color: #946200;
+        }
+
+        .status-published {
+            background: #dff3e4;
+            color: #26733b;
+        }
+
+        .status-rejected {
+            background: #ffe0e0;
+            color: #a00000;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .admin-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 22px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .approve-button {
+            background: #26733b;
+        }
+
+        .approve-button:hover {
+            background: #1c582c;
+        }
+
+        .reject-button {
+            background: #b33a3a;
+        }
+
+        .reject-button:hover {
+            background: #8f2929;
+        }
+
+        .document-button {
+            background: #8b5e3c;
+        }
+
+        .document-button:hover {
+            background: #6f472d;
+        }
+
+        .refresh-button {
+            background: #555;
+        }
+
+        .refresh-button:hover {
+            background: #333;
+        }
+
+        .admin-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #loading {
+            text-align: center;
+            color: #777;
+            padding: 30px;
+        }
+
+        #message {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 50px 20px;
+            background: #f8f3ee;
+            border: 1px solid #e5d8cc;
+            border-radius: 15px;
+            color: #777;
+        }
+
+        .admin-error {
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 11px 22px;
+            background: #8b5e3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+
+        .file-name {
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .admin-container {
+                margin: 40px auto;
+                padding: 15px;
+            }
+
+            .submission-card {
+                padding: 18px;
+            }
+
+            .admin-actions {
+                flex-direction: column;
+            }
+
+            .admin-button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <img
+            src="images/logo.jpg"
+            alt="सृजन फिर से Logo"
+        >
+
+        <span>
+            सृजन फिर से
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="admin-container">
+
+
+    <div class="admin-header">
+
+        <p class="small-text">
+            ADMINISTRATION
+        </p>
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <p id="adminEmail">
+            Checking admin access...
+        </p>
+
+    </div>
+
+
+
+    <div class="admin-tabs">
+
+        <button
+            class="admin-tab active"
+            id="pendingTab"
+            onclick="loadSubmissions('pending')"
+        >
+            Pending
+        </button>
+
+
+        <button
+            class="admin-tab"
+            id="publishedTab"
+            onclick="loadSubmissions('published')"
+        >
+            Published
+        </button>
+
+
+        <button
+            class="admin-tab"
+            id="rejectedTab"
+            onclick="loadSubmissions('rejected')"
+        >
+            Rejected
+        </button>
+
+
+        <button
+            class="admin-tab refresh-button"
+            onclick="refreshCurrentTab()"
+        >
+            ↻ Refresh
+        </button>
+
+    </div>
+
+
+
+    <p id="message"></p>
+
+
+    <p id="loading">
+        Loading submissions...
+    </p>
+
+
+    <div id="submissionsContainer"></div>
+
+
+</main>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="admin.js"></script>
+
+
+</body>
+
+</html>
