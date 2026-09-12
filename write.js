@@ -170,11 +170,12 @@ if (status === "draft") {
 } else {
 
     showMessage(
-        "Your poem has been published successfully!",
+        "Your poem has been submitted for admin approval.",
         "success"
     );
 
 }
+
 
 
 
