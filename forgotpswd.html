@@ -1,0 +1,166 @@
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Forgot Password - सृजन फिर से</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+    .auth-container {
+        max-width: 450px;
+        margin: 100px auto;
+        padding: 30px;
+    }
+
+    .auth-container h1 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .description {
+        text-align: center;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .auth-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .auth-form input {
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .auth-form button {
+        padding: 14px;
+        border: none;
+        border-radius: 6px;
+        background: #222;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .auth-form button:hover {
+        background: #444;
+    }
+
+    .auth-form button:disabled {
+        background: #999;
+        cursor: not-allowed;
+    }
+
+    #message {
+        text-align: center;
+        margin-top: 20px;
+        line-height: 1.6;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: #b00020;
+    }
+
+    .back-login {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .back-login a {
+        color: #8b5e3c;
+        text-decoration: none;
+    }
+
+</style>
+
+</head> <body> <header class="navbar">
+<div class="brand">
+
+    <img
+        src="images/logo.jpg"
+        alt="सृजन फिर से Logo"
+    >
+
+    <span>
+        सृजन फिर से
+    </span>
+
+</div>
+
+
+<nav>
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <a href="login.html">
+        Login
+    </a>
+
+</nav>
+
+</header> <main class="auth-container">
+<h1>
+    Forgot Password?
+</h1>
+
+
+<p class="description">
+    Enter your registered email address
+    and we'll send you a link to reset
+    your password.
+</p>
+
+
+<form
+    id="forgotPasswordForm"
+    class="auth-form"
+>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Enter your email address"
+        required
+    >
+
+
+    <button
+        type="submit"
+        id="resetButton"
+    >
+        Send Reset Link
+    </button>
+
+</form>
+
+
+<p id="message"></p>
+
+
+<div class="back-login">
+
+    <a href="login.html">
+        ← Back to Login
+    </a>
+
+</div>
+
+</main> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> <script src="forgot-password.js"></script> </body> </html>
