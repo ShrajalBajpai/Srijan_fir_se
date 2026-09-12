@@ -1,20 +1,11 @@
-const SUPABASE_URL = "https://xhtnidoouiaolljkqsus.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY =
- "sb_publishable_W-F-EydBhQh-rXBoBaHCUw_X-7peEiC";
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
-
 async function checkUser() {
 
     const {
-        data: { user }
+        data: { user },
+        error
     } = await supabaseClient.auth.getUser();
 
-    if (!user) {
+    if (error || !user) {
 
         window.location.href = "login.html";
 
@@ -28,13 +19,17 @@ async function checkUser() {
 
 document
     .getElementById("logoutButton")
-    .addEventListener("click", async function () {
+    .addEventListener(
+        "click",
+        async function () {
 
-        await supabaseClient.auth.signOut();
+            await supabaseClient.auth.signOut();
 
-        window.location.href = "index.html";
+            window.location.href =
+                "index.html";
 
-    });
+        }
+    );
 
 
 checkUser();
