@@ -1,69 +1,183 @@
-<meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<head>
 
-<title>Reset Password - सृजन फिर से</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="style.css">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<style>
+    <title>Reset Password - सृजन फिर से</title>
 
-    .auth-container {
-        max-width: 450px;
-        margin: 100px auto;
-        padding: 30px;
-    }
+    <link rel="stylesheet" href="style.css">
 
-    .auth-container h1 {
-        text-align: center;
-        margin-bottom: 30px;
-    }
+    <style>
 
-    .auth-form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
+        .auth-container {
+            max-width: 450px;
+            margin: 100px auto;
+            padding: 30px;
+        }
 
-    .auth-form input {
-        padding: 14px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 16px;
-    }
+        .auth-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-    .auth-form button {
-        padding: 14px;
-        border: none;
-        border-radius: 6px;
-        background: #222;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-    .auth-form button:hover {
-        background: #444;
-    }
+        .auth-form input {
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
 
-    .auth-form button:disabled {
-        background: #999;
-    }
+        .auth-form button {
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    #message {
-        text-align: center;
-        margin-top: 20px;
-    }
+        .auth-form button:hover {
+            background: #444;
+        }
 
-    .success {
-        color: green;
-    }
+        .auth-form button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
 
-    .error {
-        color: #b00020;
-    }
+        #message {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-</style>
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: #b00020;
+        }
+
+        .back-login {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-login a {
+            color: #8b5e3c;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <img
+            src="images/logo.jpg"
+            alt="सृजन फिर से Logo"
+        >
+
+        <span>
+            सृजन फिर से
+        </span>
+
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="auth-container">
+
+    <h1>
+        Create New Password
+    </h1>
+
+
+    <form
+        id="resetForm"
+        class="auth-form"
+    >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="New password"
+            minlength="6"
+            required
+        >
+
+
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm new password"
+            minlength="6"
+            required
+        >
+
+
+        <button
+            type="submit"
+            id="resetButton"
+        >
+            Update Password
+        </button>
+
+    </form>
+
+
+    <p id="message"></p>
+
+
+    <div class="back-login">
+
+        <a href="login.html">
+            ← Back to Login
+        </a>
+
+    </div>
+
+</main>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="resetpswd.js"></script>
+
+
+</body>
+
+</html>
