@@ -190,7 +190,7 @@ async function(event) {
 
     event.preventDefault();
 
-    await savePoem("published");
+await savePoem("pending");
 
 }
 
