@@ -1,50 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>सृजन फिर से</title>
 
-    <title>सृजन फिर से</title>
+<link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css">
-</head>
+<style>
+    /* Published poems */
+    .published-poems {
+        margin-top: 30px;
+    }
 
-<body>
+    .published-poem {
+        background: #f8f3ee;
+        border: 1px solid #e5d8cc;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        text-align: left;
+    }
 
-    <!-- Navigation -->
-    <header class="navbar">
-<div class="brand">
-    <img src="images/logo.jpg" alt="My Brand Logo">
-    <span>सृजन फिर से</span>
-</div>
-       <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-<a href="login.html" class="login-nav-button">Login / Register</a>
-</nav>
+    .published-poem h3 {
+        color: #6f472d;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
 
-    </header>
+    .published-poem-content {
+        white-space: pre-wrap;
+        line-height: 1.9;
+        color: #444;
+    }
+
+    .published-poem-category {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        background: #eadfd5;
+        color: #6f472d;
+        font-size: 13px;
+    }
+
+    .poems-message {
+        text-align: center;
+        color: #777;
+        padding: 30px 10px;
+    }
+</style>
+
+</head> <body>
+<!-- Navigation -->
+<header class="navbar">
+
+    <div class="brand">
+
+        <img
+            src="images/logo.jpg"
+            alt="My Brand Logo"
+        >
+
+        <span>
+            सृजन फिर से
+        </span>
+
+    </div>
+
+    <nav>
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#contact">
+            Contact
+        </a>
+
+        <a
+            href="login.html"
+            class="login-nav-button"
+        >
+            Login / Register
+        </a>
+
+    </nav>
+
+</header>
 
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+<!-- Hero Section -->
+<section id="home" class="hero">
 
-        <div class="hero-content">
-            <p class="small-text">WELCOME TO</p>
+    <div class="hero-content">
 
-            <h1>सृजन फिर से</h1>
+        <p class="small-text">
+            WELCOME TO
+        </p>
 
-            <p class="tagline">
-                हर तपिश को मुस्कराकर आलिंगन दीजिए.....🌼🌻.
-            </p>
+        <h1>
+            सृजन फिर से
+        </h1>
 
-            <a href="#about" class="button">
-                Explore
-            </a>
-        </div>
+        <p class="tagline">
+            हर तपिश को मुस्कराकर आलिंगन दीजिए.....🌼🌻.
+        </p>
 
-    </section>
+        <a href="#about" class="button">
+            Explore
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- Quotes Section -->
 <section class="quotes">
 
     <div class="quote-slider">
@@ -61,8 +133,6 @@
                 yet somehow they stay."
             </p>
 
-      <!--     <span>— Your Name</span> -->
-
         </div>
 
 
@@ -78,8 +148,6 @@
                 time forgets to erase."
             </p>
 
-      <!--     <span>— Your Name</span> -->
-
         </div>
 
 
@@ -88,103 +156,323 @@
 
             <button
                 class="dot active"
-                onclick="showQuote(0)">
-            </button>
+                onclick="showQuote(0)"
+            ></button>
 
             <button
                 class="dot"
-                onclick="showQuote(1)">
-            </button>
+                onclick="showQuote(1)"
+            ></button>
 
         </div>
 
     </div>
 
 </section>
-</section>
-    <!-- About Section -->
-    <section id="about" class="about">
-
-        <div class="section-content">
-
-            <p class="small-text">ABOUT US</p>
-
-            <h2>Our Story</h2>
-
-            <p>
-                Welcome to our website. This is where you can introduce
-                yourself, your brand, your work or your business.
-            </p>
-
-            <p>
-                We believe in creating meaningful work and sharing
-                ideas that connect with people.
-            </p>
-
-        </div>
-
-    </section>
 
 
-    <!-- Featured Section -->
-    <section class="featured">
+<!-- About Section -->
+<section id="about" class="about">
 
-        <p class="small-text">FEATURED</p>
+    <div class="section-content">
 
-        <h2>Our Work</h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <div class="card-image"></div>
-                <h3>Project One</h3>
-                <p>A short description about this project.</p>
-            </div>
-
-            <div class="card">
-                <div class="card-image"></div>
-                <h3>Project Two</h3>
-                <p>A short description about this project.</p>
-            </div>
-
-            <div class="card">
-                <div class="card-image"></div>
-                <h3>Project Three</h3>
-                <p>A short description about this project.</p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-
-        <p class="small-text">GET IN TOUCH</p>
-
-        <h2>Contact Us</h2>
-
-        <p>
-            We'd love to hear from you.
+        <p class="small-text">
+            ABOUT US
         </p>
 
-        <a href="mailto:srijanfirse@gmail.com"class="button">
-            Email Us
-        </a>
+        <h2>
+            Our Story
+        </h2>
 
-    </section>
+        <p>
+            Welcome to our website. This is where you can introduce
+            yourself, your brand, your work or your business.
+        </p>
+
+        <p>
+            We believe in creating meaningful work and sharing
+            ideas that connect with people.
+        </p>
+
+    </div>
+
+</section>
 
 
-    <!-- Footer -->
-    <footer>
+<!-- Published Poems Section -->
+<section class="featured">
 
-        <p>© 2026 Srijan fir se. All rights reserved.</p>
+    <p class="small-text">
+        FROM OUR COMMUNITY
+    </p>
 
-    </footer>
+    <h2>
+        Published Poems
+    </h2>
 
 
-    <script src="script.js"></script>
+    <!-- Poems will be inserted here -->
+    <div
+        id="published-poems"
+        class="published-poems"
+    >
 
-</body>
-</html>
+        <p class="poems-message">
+            Loading poems...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="contact">
+
+    <p class="small-text">
+        GET IN TOUCH
+    </p>
+
+    <h2>
+        Contact Us
+    </h2>
+
+    <p>
+        We'd love to hear from you.
+    </p>
+
+    <a
+        href="mailto:srijanfirse@gmail.com"
+        class="button"
+    >
+        Email Us
+    </a>
+
+</section>
+
+
+<!-- Footer -->
+<footer>
+
+    <p>
+        © 2026 Srijan fir se. All rights reserved.
+    </p>
+
+</footer>
+
+
+<!-- ================================================= -->
+<!-- SUPABASE -->
+<!-- ================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Your existing Supabase connection -->
+<script src="supabase.js"></script>
+
+<!-- Your existing website JavaScript -->
+<script src="script.js"></script>
+
+
+<!-- ================================================= -->
+<!-- LOAD PUBLISHED POEMS -->
+<!-- ================================================= -->
+
+<script>
+
+    async function loadPublishedPoems() {
+
+        const container =
+            document.getElementById(
+                "published-poems"
+            );
+
+
+        try {
+
+            const {
+                data: poems,
+                error
+            } = await supabaseClient
+
+                .from("poems")
+
+                .select("*")
+
+                .eq(
+                    "status",
+                    "published"
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+            console.log(
+                "Published poems:",
+                poems
+            );
+
+            console.log(
+                "Supabase error:",
+                error
+            );
+
+
+            // Supabase error
+            if (error) {
+
+                console.error(
+                    "Unable to load published poems:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <p class="poems-message">
+
+                        Unable to load poems.
+
+                    </p>
+
+                `;
+
+                return;
+            }
+
+
+            // No published poems
+            if (
+                !poems ||
+                poems.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <p class="poems-message">
+
+                        No published poems yet.
+
+                    </p>
+
+                `;
+
+                return;
+            }
+
+
+            // Clear loading message
+            container.innerHTML = "";
+
+
+            // Display every published poem
+            poems.forEach(
+                function(poem) {
+
+                    const poemCard =
+                        document.createElement(
+                            "article"
+                        );
+
+                    poemCard.className =
+                        "published-poem";
+
+
+                    // Title
+                    const title =
+                        document.createElement(
+                            "h3"
+                        );
+
+                    title.textContent =
+                        poem.title ||
+                        "Untitled";
+
+
+                    // Content
+                    const content =
+                        document.createElement(
+                            "div"
+                        );
+
+                    content.className =
+                        "published-poem-content";
+
+                    content.textContent =
+                        poem.content ||
+                        "";
+
+
+                    poemCard.appendChild(
+                        title
+                    );
+
+                    poemCard.appendChild(
+                        content
+                    );
+
+
+                    // Category
+                    if (
+                        poem.category
+                    ) {
+
+                        const category =
+                            document.createElement(
+                                "span"
+                            );
+
+                        category.className =
+                            "published-poem-category";
+
+                        category.textContent =
+                            poem.category;
+
+                        poemCard.appendChild(
+                            category
+                        );
+
+                    }
+
+
+                    container.appendChild(
+                        poemCard
+                    );
+
+                }
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Unexpected poem loading error:",
+                error
+            );
+
+            container.innerHTML = `
+
+                <p class="poems-message">
+
+                    Unable to load poems.
+
+                </p>
+
+            `;
+
+        }
+
+    }
+
+
+    // Load published poems when page opens
+    loadPublishedPoems();
+
+</script>
+
+</body> </html>
