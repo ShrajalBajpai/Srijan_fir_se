@@ -1,10 +1,22 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html> <html lang="hi"> <head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <title>सृजन फिर से</title>
 
-<link rel="stylesheet" href="style.css">
+<link
+    rel="stylesheet"
+    href="style.css"
+>
 
+
+<!-- प्रकाशित रचनाओं की Styling -->
 <style>
-    /* Published poems */
+
     .published-poems {
         margin-top: 30px;
     }
@@ -45,468 +57,298 @@
         color: #777;
         padding: 30px 10px;
     }
+
+
+    /* शुभ शुरुआत सेक्शन */
+
+    .special-message {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 35px 25px;
+        text-align: center;
+        background: #f8f3ee;
+        border: 1px solid #e5d8cc;
+        border-radius: 18px;
+    }
+
+    .special-message h2 {
+        color: #6f472d;
+        margin-bottom: 20px;
+    }
+
+    .special-message p {
+        line-height: 1.9;
+    }
+
+    .special-message strong {
+        color: #6f472d;
+    }
+
 </style>
 
-</head> <body>
-<!-- Navigation -->
-<header class="navbar">
+</head> <body> <!-- ================================================= --> <!-- NAVIGATION --> <!-- ================================================= --> <header class="navbar">
+<div class="brand">
 
-    <div class="brand">
+    <img
+        src="images/logo.jpg"
+        alt="सृजन फिर से लोगो"
+    >
 
-        <img
-            src="images/logo.jpg"
-            alt="My Brand Logo"
-        >
+    <span>
+        सृजन फिर से
+    </span>
 
-        <span>
-            सृजन फिर से
-        </span>
-
-    </div>
-
-    <nav>
-
-        <a href="#home">
-            Home
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
-        <a href="#contact">
-            Contact
-        </a>
-
-        <a
-            href="login.html"
-            class="login-nav-button"
-        >
-            Login / Register
-        </a>
-
-    </nav>
-
-</header>
+</div>
 
 
-<!-- Hero Section -->
-<section id="home" class="hero">
+<nav>
 
-    <div class="hero-content">
+    <a href="#home">
+        मुख्य पृष्ठ
+    </a>
 
-        <p class="small-text">
-            WELCOME TO
-        </p>
+    <a href="#about">
+        हमारे बारे में
+    </a>
 
-        <h1>
-            सृजन फिर से
-        </h1>
+    <a href="#contact">
+        संपर्क करें
+    </a>
 
-        <p class="tagline">
-            हर तपिश को मुस्कराकर आलिंगन दीजिए.....🌼🌻.
-        </p>
+    <a
+        href="login.html"
+        class="login-nav-button"
+    >
+        लॉगिन / रजिस्टर
+    </a>
 
-        <a href="#about" class="button">
-            Explore
-        </a>
+</nav>
 
-    </div>
-
-</section>
-
-
-<!-- शुभ शुरुआत: गणेश चतुर्थी + हिंदी दिवस -->
-<section class="special-message">
+</header> <!-- ================================================= --> <!-- HERO SECTION --> <!-- ================================================= --> <section id="home" class="hero" >
+<div class="hero-content">
 
     <p class="small-text">
-        एक शुभ शुरुआत
+        आपका स्वागत है
     </p>
+
+
+    <h1>
+        सृजन फिर से
+    </h1>
+
+
+    <p class="tagline">
+        हर तपिश को मुस्कराकर आलिंगन दीजिए.....🌼🌻
+    </p>
+
+
+    <a
+        href="#about"
+        class="button"
+    >
+        आगे बढ़ें
+    </a>
+
+</div>
+
+</section> <!-- ================================================= --> <!-- QUOTES SECTION --> <!-- ================================================= --> <section class="quotes">
+<div class="quote-slider">
+
+
+    <!-- आज के शब्द -->
+
+    <div class="quote active">
+
+        <p class="quote-label">
+            आज के शब्द
+        </p>
+
+
+        <p class="quote-text">
+            "हिंदी केवल एक भाषा नहीं,
+            हमारी संस्कृति, संस्कार और
+            भावनाओं की पहचान है।"
+        </p>
+
+    </div>
+
+
+
+    <!-- कल के शब्द -->
+
+    <div class="quote">
+
+        <p class="quote-label">
+            कल के शब्द
+        </p>
+
+
+        <p class="quote-text">
+            "हिंदी से जुड़ना,
+            अपनी जड़ों से जुड़ना है;
+            आइए इसे सम्मान दें
+            और गर्व से अपनाएँ।"
+        </p>
+
+    </div>
+
+
+
+    <!-- Navigation Dots -->
+
+    <div class="dots">
+
+        <button
+            class="dot active"
+            onclick="showQuote(0)"
+            aria-label="आज के शब्द"
+        ></button>
+
+
+        <button
+            class="dot"
+            onclick="showQuote(1)"
+            aria-label="कल के शब्द"
+        ></button>
+
+    </div>
+
+</div>
+
+</section> <!-- ================================================= --> <!-- शुभ शुरुआत --> <!-- गणेश चतुर्थी + हिंदी दिवस --> <!-- ================================================= --> <section class="special-message">
+<p class="small-text">
+    एक शुभ शुरुआत
+</p>
+
+
+<h2>
+    शब्दों से सृजन की ओर
+</h2>
+
+
+<p>
+    विघ्नहर्ता श्री गणेश के आशीर्वाद और
+    हिंदी दिवस के इस शुभ अवसर पर
+    <strong>“सृजन फिर से”</strong> की एक नई शुरुआत।
+</p>
+
+
+<p>
+    यह केवल एक नई वेबसाइट नहीं,
+    बल्कि उन भावनाओं, विचारों और रचनाओं का
+    एक छोटा-सा संसार है,
+    जिन्हें शब्दों में ढलने का इंतज़ार था।
+</p>
+
+
+<p>
+    हिंदी हमारी भाषा ही नहीं,
+    हमारी संस्कृति, संस्कार और भावनाओं की पहचान है।
+    आइए, अपनी भाषा को सम्मान दें,
+    अपने विचारों को शब्द दें
+    और सृजन को फिर से एक नई उड़ान दें।
+</p>
+
+
+<p>
+    <strong>
+        गणपति बप्पा मोरया! 🌺🙏
+    </strong>
+</p>
+
+
+<p>
+    <strong>
+        हिंदी दिवस की हार्दिक शुभकामनाएँ। 🇮🇳
+    </strong>
+</p>
+
+</section> <!-- ================================================= --> <!-- ABOUT SECTION --> <!-- ================================================= --> <section id="about" class="about" >
+<div class="section-content">
+
+
+    <p class="small-text">
+        हमारे बारे में
+    </p>
+
 
     <h2>
-        शब्दों से सृजन की ओर
+        हमारी कहानी
     </h2>
 
-    <p>
-        विघ्नहर्ता श्री गणेश के आशीर्वाद और
-        हिंदी दिवस के इस शुभ अवसर पर
-        <strong>“सृजन फिर से”</strong> की एक नई शुरुआत।
-    </p>
 
     <p>
-        यह केवल एक नई वेबसाइट नहीं,
-        बल्कि उन भावनाओं, विचारों और रचनाओं का
-        एक छोटा-सा संसार है,
-        जिन्हें शब्दों में ढलने का इंतज़ार था।
+        हमारी वेबसाइट में आपका स्वागत है।
+        यह एक ऐसा मंच है जहाँ विचारों,
+        भावनाओं और रचनाओं को शब्दों के
+        माध्यम से साझा किया जा सकता है।
     </p>
 
+
     <p>
-        हिंदी हमारी भाषा ही नहीं,
-        हमारी संस्कृति, संस्कार और भावनाओं की पहचान है।
-        आइए, अपनी भाषा को सम्मान दें,
-        अपने विचारों को शब्द दें
+        हम सार्थक रचनाएँ करने और ऐसे
+        विचारों को साझा करने में विश्वास
+        रखते हैं, जो लोगों के दिलों से जुड़ें
+        और उनके मन में एक सकारात्मक भाव जगाएँ।
+    </p>
+
+
+    <p>
+        आइए, अपने शब्दों को एक मंच दें,
+        अपनी भावनाओं को अभिव्यक्ति दें
         और सृजन को फिर से एक नई उड़ान दें।
     </p>
 
-    <p>
-        <strong>
-            गणपति बप्पा मोरया! 🌺🙏
-        </strong>
+</div>
+
+</section> <!-- ================================================= --> <!-- PUBLISHED POEMS --> <!-- ================================================= --> <section class="featured">
+<p class="small-text">
+    हमारे रचनाकार
+</p>
+
+
+<h2>
+    प्रकाशित रचनाएँ
+</h2>
+
+
+<div
+    id="published-poems"
+    class="published-poems"
+>
+
+    <p class="poems-message">
+        रचनाएँ लोड हो रही हैं...
     </p>
 
-    <p>
-        <strong>
-            हिंदी दिवस की हार्दिक शुभकामनाएँ। 🇮🇳
-        </strong>
-    </p>
+</div>
 
-</section>
+</section> <!-- ================================================= --> <!-- CONTACT SECTION --> <!-- ================================================= --> <section id="contact" class="contact" >
+<p class="small-text">
+    हमसे जुड़ें
+</p>
 
 
-<!-- Quotes Section -->
-<section class="quotes">
+<h2>
+    संपर्क करें
+</h2>
 
 
-    <div class="quote-slider">
+<p>
+    हमें आपसे सुनकर खुशी होगी।
+</p>
 
-        <!-- Today's Quote -->
-        <div class="quote active">
 
-            <p class="quote-label">
-                WORDS FOR TODAY
-            </p>
+<a
+    href="mailto:srijanfirse@gmail.com"
+    class="button"
+>
+    हमें ईमेल करें
+</a>
 
-            <p class="quote-text">
-                "हिंदी केवल एक भाषा नहीं, हमारी संस्कृति, संस्कार और भावनाओं की पहचान है।"
-            </p>
+</section> <!-- ================================================= --> <!-- FOOTER --> <!-- ================================================= --> <footer>
+<p>
+    © 2026 सृजन फिर से। सर्वाधिकार सुरक्षित।
+</p>
 
-        </div>
-
-
-        <!-- Yesterday's Quote -->
-        <div class="quote">
-
-            <p class="quote-label">
-                WORDS FOR YESTERDAY
-            </p>
-
-            <p class="quote-text">
-                "Tिंदी से जुड़ना, अपनी जड़ों से जुड़ना है; आइए इसे सम्मान दें और गर्व से अपनाएँ।"
-            </p>
-
-        </div>
-
-
-        <!-- Navigation Dots -->
-        <div class="dots">
-
-            <button
-                class="dot active"
-                onclick="showQuote(0)"
-            ></button>
-
-            <button
-                class="dot"
-                onclick="showQuote(1)"
-            ></button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- About Section -->
-<section id="about" class="about">
-
-    <div class="section-content">
-
-    <p class="small-text"> हमारे बारे में </p>
-
-        <p>
-            हम सार्थक रचनाएँ करने और ऐसे विचारों को साझा करने में विश्वास रखते हैं, जो लोगों के दिलों से जुड़ें और उनके मन में एक सकारात्मक भाव जगाएँ।
-        </p> 
-
-    </div>
-
-</section>
-
-
-<!-- Published Poems Section -->
-<section class="featured">
-
-    <p class="small-text">
-        FROM OUR COMMUNITY
-    </p>
-
-    <h2>
-        Published Poems
-    </h2>
-
-
-    <!-- Poems will be inserted here -->
-    <div
-        id="published-poems"
-        class="published-poems"
-    >
-
-        <p class="poems-message">
-            Loading poems...
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- Contact Section -->
-<section id="contact" class="contact">
-
-    <p class="small-text">
-        GET IN TOUCH
-    </p>
-
-    <h2>
-        Contact Us
-    </h2>
-
-    <p>
-        We'd love to hear from you.
-    </p>
-
-    <a
-        href="mailto:srijanfirse@gmail.com"
-        class="button"
-    >
-        Email Us
-    </a>
-
-</section>
-
-
-<!-- Footer -->
-<footer>
-
-    <p>
-        © 2026 Srijan fir se. All rights reserved.
-    </p>
-
-</footer>
-
-
-<!-- ================================================= -->
-<!-- SUPABASE -->
-<!-- ================================================= -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- Your existing Supabase connection -->
-<script src="supabase.js"></script>
-
-<!-- Your existing website JavaScript -->
-<script src="script.js"></script>
-
-
-<!-- ================================================= -->
-<!-- LOAD PUBLISHED POEMS -->
-<!-- ================================================= -->
-
-<script>
-
-    async function loadPublishedPoems() {
-
-        const container =
-            document.getElementById(
-                "published-poems"
-            );
-
-
-        try {
-
-            const {
-                data: poems,
-                error
-            } = await supabaseClient
-
-                .from("poems")
-
-                .select("*")
-
-                .eq(
-                    "status",
-                    "published"
-                )
-
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
-                );
-
-
-            console.log(
-                "Published poems:",
-                poems
-            );
-
-            console.log(
-                "Supabase error:",
-                error
-            );
-
-
-            // Supabase error
-            if (error) {
-
-                console.error(
-                    "Unable to load published poems:",
-                    error
-                );
-
-                container.innerHTML = `
-
-                    <p class="poems-message">
-
-                        Unable to load poems.
-
-                    </p>
-
-                `;
-
-                return;
-            }
-
-
-            // No published poems
-            if (
-                !poems ||
-                poems.length === 0
-            ) {
-
-                container.innerHTML = `
-
-                    <p class="poems-message">
-
-                        No published poems yet.
-
-                    </p>
-
-                `;
-
-                return;
-            }
-
-
-            // Clear loading message
-            container.innerHTML = "";
-
-
-            // Display every published poem
-            poems.forEach(
-                function(poem) {
-
-                    const poemCard =
-                        document.createElement(
-                            "article"
-                        );
-
-                    poemCard.className =
-                        "published-poem";
-
-
-                    // Title
-                    const title =
-                        document.createElement(
-                            "h3"
-                        );
-
-                    title.textContent =
-                        poem.title ||
-                        "Untitled";
-
-
-                    // Content
-                    const content =
-                        document.createElement(
-                            "div"
-                        );
-
-                    content.className =
-                        "published-poem-content";
-
-                    content.textContent =
-                        poem.content ||
-                        "";
-
-
-                    poemCard.appendChild(
-                        title
-                    );
-
-                    poemCard.appendChild(
-                        content
-                    );
-
-
-                    // Category
-                    if (
-                        poem.category
-                    ) {
-
-                        const category =
-                            document.createElement(
-                                "span"
-                            );
-
-                        category.className =
-                            "published-poem-category";
-
-                        category.textContent =
-                            poem.category;
-
-                        poemCard.appendChild(
-                            category
-                        );
-
-                    }
-
-
-                    container.appendChild(
-                        poemCard
-                    );
-
-                }
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Unexpected poem loading error:",
-                error
-            );
-
-            container.innerHTML = `
-
-                <p class="poems-message">
-
-                    Unable to load poems.
-
-                </p>
-
-            `;
-
-        }
-
-    }
-
-
-    // Load published poems when page opens
-    loadPublishedPoems();
-
-</script>
-
-</body> </html>
+</footer> <!-- ================================================= --> <!-- SUPABASE --> <!-- ================================================= --> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> <!-- आपकी मौजूदा Supabase connection file --> <script src="supabase.js"></script> <!-- आपकी मौजूदा website JavaScript --> <script src="script.js"></script> <!-- ================================================= --> <!-- LOAD PUBLISHED POEMS --> <!-- ================================================= --> <script> async function loadPublishedPoems() { const container = document.getElementById( "published-poems" ); try { const { data: poems, error } = await supabaseClient .from("poems") .select("*") .eq( "status", "published" ) .order( "created_at", { ascending: false } ); console.log( "Published poems:", poems ); console.log( "Supabase error:", error ); /* ----------------------------------------- Supabase Error ----------------------------------------- */ if (error) { console.error( "Published poems loading error:", error ); container.innerHTML = ` <p class="poems-message"> रचनाएँ लोड नहीं हो सकीं। </p> `; return; } /* ----------------------------------------- कोई Published Poem नहीं ----------------------------------------- */ if ( !poems || poems.length === 0 ) { container.innerHTML = ` <p class="poems-message"> अभी कोई प्रकाशित रचना उपलब्ध नहीं है। </p> `; return; } /* ----------------------------------------- Loading message हटाएँ ----------------------------------------- */ container.innerHTML = ""; /* ----------------------------------------- सभी Published Poems दिखाएँ ----------------------------------------- */ poems.forEach( function(poem) { const poemCard = document.createElement( "article" ); poemCard.className = "published-poem"; /* शीर्षक */ const title = document.createElement( "h3" ); title.textContent = poem.title || "शीर्षक रहित रचना"; /* कविता / रचना */ const content = document.createElement( "div" ); content.className = "published-poem-content"; content.textContent = poem.content || ""; poemCard.appendChild( title ); poemCard.appendChild( content ); /* Category */ if ( poem.category ) { const category = document.createElement( "span" ); category.className = "published-poem-category"; category.textContent = poem.category; poemCard.appendChild( category ); } container.appendChild( poemCard ); } ); } catch (error) { console.error( "Unexpected poem loading error:", error ); container.innerHTML = ` <p class="poems-message"> रचनाएँ लोड नहीं हो सकीं। </p> `; } } /* ============================================ Page खुलते ही Published Poems Load करें ============================================ */ loadPublishedPoems(); </script> </body> </html>
